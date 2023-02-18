@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.CvSink;
@@ -30,26 +31,28 @@ public class Camera extends SubsystemBase{
         output = new Mat();
     }
 
+    public void startCamera() {
+        new Thread(
+            () -> {
+                while(!Thread.interrupted()){
+                    if ( cvSink.grabFrame(source) == 0 ) {
+                        continue;
+                    }
+                    Imgproc.cvtColor(source,output,Imgproc.COLOR_BGR2GRAY);
+                    outputstream.putFrame(output);
+                }
+            }
 
+        ).start();
+    }
 
     @Override
     public void periodic() {
     // This method will be called once per scheduler run
-
-
-
     }
-
 
     @Override
     public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
-
-
-
     }
-
-
-
-
 }
