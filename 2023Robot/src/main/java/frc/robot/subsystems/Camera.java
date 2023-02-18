@@ -9,6 +9,8 @@ import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Camera extends SubsystemBase{
+
+    // Camera class variables
     
     private final UsbCamera camera;
     private final CvSink cvSink;
@@ -20,8 +22,8 @@ public class Camera extends SubsystemBase{
     private final int width = 640;
     private final int height = 480;
 
+    // Constructor sets up camera and camera output
     public Camera(){
-
         camera = CameraServer.startAutomaticCapture();
         camera.setResolution(width,height);
         cvSink = CameraServer.getVideo();
@@ -31,6 +33,7 @@ public class Camera extends SubsystemBase{
         output = new Mat();
     }
 
+    // outputs all frames from camera to dashboard and makes a new thread.
     public void startCamera() {
         new Thread(
             () -> {

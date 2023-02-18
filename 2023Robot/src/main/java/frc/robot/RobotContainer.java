@@ -25,7 +25,7 @@ public class RobotContainer {
     configureBindings();
 
     // starting the camera
-    startCamera();
+    camera.startCamera();
   }
 
   /**
@@ -48,9 +48,5 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     return null;
-  }
-
-  public void startCamera(){
-    camera.startCamera();
   }
 }
