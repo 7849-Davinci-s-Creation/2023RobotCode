@@ -17,7 +17,7 @@ import frc.robot.subsystems.Camera;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  Camera camera = new Camera();
+  private final Camera camera = new Camera();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
