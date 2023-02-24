@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.subsystems.Camera;
+import frc.robot.subsystems.Cameras;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -18,7 +18,7 @@ import frc.robot.subsystems.Camera;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final Camera camera = new Camera();
+  private final Cameras camera = new Cameras();
 
   // controllers
   private final Joystick joystick = new Joystick(Constants.Controllers.JOYSTICK_PORT);
@@ -28,8 +28,8 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
 
-    // starting the camera
-    camera.startCamera();
+    // starting the cameras
+    camera.startCameras();
   }
 
   /**

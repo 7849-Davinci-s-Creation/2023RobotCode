@@ -7,14 +7,17 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-public class Camera extends SubsystemBase{
+public class Cameras extends SubsystemBase{
 
     // Camera class variables
     
-    private final UsbCamera camera;
+    private final UsbCamera frontCamera;
+    private final UsbCamera backCamera;
     private final CvSink cvSink;
-    private final CvSource outputstream;
+    private final CvSource backOutputstream;
+    private final CvSource frontOutputstream;
 
     private final Mat source;
     private final Mat output;
@@ -23,18 +26,23 @@ public class Camera extends SubsystemBase{
     private final int height = 480;
 
     // Constructor sets up camera and camera output
-    public Camera(){
-        camera = CameraServer.startAutomaticCapture();
-        camera.setResolution(width,height);
+    public Cameras(){
+        frontCamera = CameraServer.startAutomaticCapture();
+        frontCamera.setResolution(width,height);
+        backCamera = CameraServer.startAutomaticCapture();
+        backCamera.setResolution(width,height);
+        frontCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+        backCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
         cvSink = CameraServer.getVideo();
-        outputstream = CameraServer.putVideo("RobotPOV", width,height);
+        frontOutputstream = CameraServer.putVideo("Front", width,height);
+        backOutputstream = CameraServer.putVideo("Back", width,height);
 
         source = new Mat();
         output = new Mat();
     }
 
     // outputs all frames from camera to dashboard and makes a new thread.
-    public void startCamera() {
+    public void startCameras() {
         new Thread(
             () -> {
                 while(!Thread.interrupted()){
@@ -42,7 +50,8 @@ public class Camera extends SubsystemBase{
                         continue;
                     }
                     Imgproc.cvtColor(source,output,Imgproc.COLOR_BGR2GRAY);
-                    outputstream.putFrame(output);
+                    frontOutputstream.putFrame(output);
+                    backOutputstream.putFrame(output);
                 }
             }
 
