@@ -8,6 +8,8 @@ import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Cameras extends SubsystemBase{
 
@@ -19,17 +21,18 @@ public class Cameras extends SubsystemBase{
     private final CvSource backOutputstream;
     private final CvSource frontOutputstream;
 
+    NetworkTableEntry selectedcamera;
+
     private final Mat source;
     private final Mat output;
-
     private final int width = 640;
     private final int height = 480;
 
     // Constructor sets up camera and camera output
     public Cameras(){
-        frontCamera = CameraServer.startAutomaticCapture();
+        frontCamera = CameraServer.startAutomaticCapture(0);
         frontCamera.setResolution(width,height);
-        backCamera = CameraServer.startAutomaticCapture();
+        backCamera = CameraServer.startAutomaticCapture(1);
         backCamera.setResolution(width,height);
         frontCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
         backCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
@@ -39,6 +42,8 @@ public class Cameras extends SubsystemBase{
 
         source = new Mat();
         output = new Mat();
+        
+        selectedcamera = NetworkTableInstance.getDefault().getTable("").getEntry("selectedcamera");
     }
 
     // outputs all frames from camera to dashboard and makes a new thread.
@@ -57,7 +62,6 @@ public class Cameras extends SubsystemBase{
 
         ).start();
     }
-
     @Override
     public void periodic() {
     // This method will be called once per scheduler run
@@ -67,4 +71,18 @@ public class Cameras extends SubsystemBase{
     public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
     }
+
+    public UsbCamera getfrontCamera(){
+        return this.frontCamera;
+    }
+
+    public UsbCamera getbackCamera(){
+        return this.backCamera;
+    }
+
+    public NetworkTableEntry getselectedCamera(){
+        return this.selectedcamera;
+    }
+
+    
 }

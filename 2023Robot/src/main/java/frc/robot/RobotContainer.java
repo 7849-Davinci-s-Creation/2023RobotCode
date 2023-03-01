@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.SwitchCamera;
 import frc.robot.subsystems.Cameras;
 
 /**
@@ -27,6 +28,8 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+    // Configure subsystems default command 
+    configureDefault();
 
     // starting the cameras
     camera.startCameras();
@@ -53,4 +56,8 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     return null;
   }
+
+  public void configureDefault(){
+    camera.setDefaultCommand(new SwitchCamera(camera,joystick, camera.getfrontCamera(), camera.getbackCamera(), camera.getselectedCamera())); 
+  } 
 }
