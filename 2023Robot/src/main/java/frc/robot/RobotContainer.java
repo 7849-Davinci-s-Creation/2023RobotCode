@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -30,6 +31,8 @@ public class RobotContainer {
     configureBindings();
     // Configure subsystems default command 
     configureDefault();
+    // Configure the SmartDashboard
+    configureDashboard();
 
     // starting the cameras
     camera.startCameras();
@@ -57,7 +60,17 @@ public class RobotContainer {
     return null;
   }
 
-  public void configureDefault(){
+  /**
+   * Configures subsystem's default commands
+   */
+  public void configureDefault() {
     camera.setDefaultCommand(new SwitchCamera(camera,joystick, camera.getfrontCamera(), camera.getbackCamera(), camera.getselectedCamera())); 
   } 
+
+  /*
+   * Configures the SmartDashboard on Robot startup
+   */
+  public void configureDashboard() {
+    SmartDashboard.putString("CurrentView","Front");
+  }
 }
