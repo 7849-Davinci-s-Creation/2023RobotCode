@@ -25,8 +25,8 @@ public class Cameras extends SubsystemBase{
 
     private final Mat source;
     private final Mat output;
-    private final int width = 640;
-    private final int height = 480;
+    private final int width = 1000;
+    private final int height = 1000;
 
     // Constructor sets up camera and camera output
     public Cameras(){

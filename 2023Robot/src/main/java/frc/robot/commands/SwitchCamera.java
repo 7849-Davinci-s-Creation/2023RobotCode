@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Cameras;
 
@@ -29,9 +30,10 @@ public class SwitchCamera extends CommandBase {
     public void execute( ){
         if ( remote.getTriggerPressed()) {
             camerselected.setString(back.getName());
-            
+            SmartDashboard.putString("CurrentView","Back");
         } else if (remote.getTriggerReleased()){
             camerselected.setString(front.getName());
+            SmartDashboard.putString("CurrentView","Front");
         }
     }
 
