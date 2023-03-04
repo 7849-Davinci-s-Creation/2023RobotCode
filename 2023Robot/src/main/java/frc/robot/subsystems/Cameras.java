@@ -10,8 +10,10 @@ import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-public class Cameras extends SubsystemBase{
+import frc.robot.Util.ConfigureDashboard;
+public class Cameras extends SubsystemBase implements ConfigureDashboard{
 
     // Camera class variables
     
@@ -72,6 +74,11 @@ public class Cameras extends SubsystemBase{
     // This method will be called once per scheduler run during simulation
     }
 
+    @Override
+    public void configureDashboard() {
+        SmartDashboard.putString("CurrentView","Front");
+    }
+
     public UsbCamera getfrontCamera(){
         return this.frontCamera;
     }
@@ -83,6 +90,5 @@ public class Cameras extends SubsystemBase{
     public NetworkTableEntry getselectedCamera(){
         return this.selectedcamera;
     }
-
     
 }
