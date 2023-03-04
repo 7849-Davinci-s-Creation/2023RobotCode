@@ -8,8 +8,10 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.Moving;
 import frc.robot.commands.SwitchCamera;
 import frc.robot.subsystems.Cameras;
+import frc.robot.subsystems.DriveTrain;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -20,6 +22,7 @@ import frc.robot.subsystems.Cameras;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Cameras camera = new Cameras();
+  private final DriveTrain driveTrain = new DriveTrain();
 
   // controllers
   private final Joystick joystick = new Joystick(Constants.Controllers.JOYSTICK_PORT);
@@ -63,7 +66,8 @@ public class RobotContainer {
    * Configures subsystem's default commands
    */
   public void configureDefault() {
-    camera.setDefaultCommand(new SwitchCamera(camera,joystick, camera.getfrontCamera(), camera.getbackCamera(), camera.getselectedCamera())); 
+    camera.setDefaultCommand(new SwitchCamera(camera,joystick, camera.getfrontCamera(), camera.getbackCamera(), camera.getselectedCamera()));
+    driveTrain.setDefaultCommand(new Moving(driveTrain, joystick));
   } 
 
   /*
