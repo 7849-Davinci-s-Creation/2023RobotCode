@@ -25,4 +25,8 @@ public final class Constants {
         public static final int BACKRIGHTMOTOR_PORT = 6;
         public static final int BACKLEFTMOTOR_PORT = 5;
     }
+    public static final class CameraConstants{
+        public static final String FRONT_CAMERA_NAME = "Front";
+        public static final String BACK_CAMERA_NAME = "Back";
+    }
 }

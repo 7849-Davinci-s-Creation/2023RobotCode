@@ -5,6 +5,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Cameras;
 
 public class SwitchCamera extends CommandBase {
@@ -29,10 +30,10 @@ public class SwitchCamera extends CommandBase {
     @Override
     public void execute( ){
         if ( remote.getTriggerPressed()) {
-            camerselected.setString(back.getName());
+            camerselected.setString(Constants.CameraConstants.BACK_CAMERA_NAME);
             SmartDashboard.putString("CurrentView","Back");
         } else if (remote.getTriggerReleased()){
-            camerselected.setString(front.getName());
+            camerselected.setString(Constants.CameraConstants.FRONT_CAMERA_NAME);
             SmartDashboard.putString("CurrentView","Front");
         }
     }
