@@ -9,13 +9,12 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Cameras;
 
 public class SwitchCamera extends CommandBase {
+    private final Joystick remote;
+    private final UsbCamera front;
+    private final UsbCamera back;
+    private final NetworkTableEntry camerselected;
 
-    Joystick remote;
-    UsbCamera front;
-    UsbCamera back;
-    NetworkTableEntry camerselected;
-
-    public SwitchCamera( Cameras cameras,Joystick remote, UsbCamera front, UsbCamera back, NetworkTableEntry camerselected ){
+    public SwitchCamera(Cameras cameras,Joystick remote, UsbCamera front, UsbCamera back, NetworkTableEntry camerselected) {
         this.remote = remote;
         this.front = front;
         this.back = back;
@@ -24,15 +23,17 @@ public class SwitchCamera extends CommandBase {
     }
 
     @Override
-    public void initialize( ){
+    public void initialize() {
     }
 
     @Override
-    public void execute( ){
-        if ( remote.getTriggerPressed()) {
+    public void execute() {
+        // When remote is pressed down show the back camera. Else show front.
+        // We need to switch this to be based upon the Y position of the joystick instead of a button.
+        if (remote.getTriggerPressed()) {
             camerselected.setString(Constants.CameraConstants.BACK_CAMERA_NAME);
             SmartDashboard.putString("CurrentView","Back");
-        } else if (remote.getTriggerReleased()){
+        } else if (remote.getTriggerReleased()) {
             camerselected.setString(Constants.CameraConstants.FRONT_CAMERA_NAME);
             SmartDashboard.putString("CurrentView","Front");
         }
@@ -43,9 +44,8 @@ public class SwitchCamera extends CommandBase {
     }
 
     @Override 
-    public boolean isFinished( ){
+    public boolean isFinished() {
         return false;
     }
-
 
 }
