@@ -20,7 +20,7 @@ public class DriveTrain extends SubsystemBase {
     // create differential drive
     DifferentialDrive differentialDrive;
 
-    public DriveTrain(){
+    public DriveTrain() {
         frontRightMotor = new CANSparkMax( Constants.Motors.FRONTRIGHTMOTOR_PORT, MotorType.kBrushless);
         backRightMotor = new CANSparkMax(Constants.Motors.BACKRIGHTMOTOR_PORT, MotorType.kBrushless);
         frontLeftMotor = new CANSparkMax(Constants.Motors.FRONTLEFTMOTOR_PORT, MotorType.kBrushless);
@@ -33,12 +33,12 @@ public class DriveTrain extends SubsystemBase {
         differentialDrive = new DifferentialDrive(rightDrive, leftDrive);
     }
 
-    public void  arcadeDrive(double moveSpeed, double rotateSpeed){
+    public void  arcadeDrive(double moveSpeed, double rotateSpeed) { 
         differentialDrive.arcadeDrive(moveSpeed, rotateSpeed);
     }
 
     @Override
-    public void periodic(){
+    public void periodic() {
 
     }
     

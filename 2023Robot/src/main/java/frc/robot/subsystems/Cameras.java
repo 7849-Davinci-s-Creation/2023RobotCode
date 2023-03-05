@@ -12,25 +12,32 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Util.ConfigureDashboard;
-public class Cameras extends SubsystemBase implements ConfigureDashboard{
+import frc.robot.Util.DashboardConfiguration;
+
+public class Cameras extends SubsystemBase implements DashboardConfiguration {
 
     // Camera class variables
     
     private final UsbCamera frontCamera;
     private final UsbCamera backCamera;
-    private final CvSink cvSink;
+
+    private final CvSink cvSink1;
+    private final CvSink cvSink2;
+
     private final CvSource backOutputstream;
     private final CvSource frontOutputstream;
 
-    NetworkTableEntry selectedcamera;
+    private final NetworkTableEntry selectedcamera;
 
-    private final Mat source;
-    private final Mat output;
+    private final Mat source1;
+    private final Mat output1;
+    private final Mat source2;
+    private final Mat output2;
+
     private final int width = 1000;
     private final int height = 1000;
 
-    // Constructor sets up camera and camera output
+    // Constructor sets up cameras and cameras output
     public Cameras(){
         frontCamera = CameraServer.startAutomaticCapture(0);
         frontCamera.setResolution(width,height);
@@ -38,12 +45,17 @@ public class Cameras extends SubsystemBase implements ConfigureDashboard{
         backCamera.setResolution(width,height);
         frontCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
         backCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
-        cvSink = CameraServer.getVideo();
+
+        cvSink1 = CameraServer.getVideo(frontCamera.getName());
+        cvSink2 = CameraServer.getVideo(backCamera.getName());
+
         frontOutputstream = CameraServer.putVideo("Front", width,height);
         backOutputstream = CameraServer.putVideo("Back", width,height);
 
-        source = new Mat();
-        output = new Mat();
+        source1 = new Mat();
+        output1 = new Mat();
+        source2 = new Mat();
+        output2 = new Mat();
         
         selectedcamera = NetworkTableInstance.getDefault().getTable("").getEntry("selectedcamera");
     }
@@ -53,12 +65,16 @@ public class Cameras extends SubsystemBase implements ConfigureDashboard{
         new Thread(
             () -> {
                 while(!Thread.interrupted()){
-                    if ( cvSink.grabFrame(source) == 0 ) {
+                    if ( cvSink1.grabFrame(source1) == 0 ) {
                         continue;
                     }
-                    Imgproc.cvtColor(source,output,Imgproc.COLOR_BGR2GRAY);
-                    frontOutputstream.putFrame(output);
-                    backOutputstream.putFrame(output);
+                    if(cvSink2.grabFrame(source2) == 0) {
+                        continue;
+                    }
+                    Imgproc.cvtColor(source1,output1,Imgproc.COLOR_BGR2GRAY);
+                    Imgproc.cvtColor(source2,output2,Imgproc.COLOR_BGR2GRAY);
+                    frontOutputstream.putFrame(output1);
+                    backOutputstream.putFrame(output2);
                 }
             }
 
