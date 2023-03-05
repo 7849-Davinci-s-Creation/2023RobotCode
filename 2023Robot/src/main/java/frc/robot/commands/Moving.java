@@ -9,19 +9,20 @@ public class Moving extends CommandBase {
     private final DriveTrain drivetain;
     private final Joystick thestick;
 
+    // variables for calculating move speed
     private double lastmoveSpeed;
     private double currentmovespeed;
     private double lastrotatespeed;
     private double currentrotatespeed;
 
-    public Moving(DriveTrain drivetain, Joystick thestick){
+    public Moving(DriveTrain drivetain, Joystick thestick) {
         this.drivetain = drivetain;
         this.thestick = thestick;
         addRequirements(drivetain);
     }
     
     @Override
-    public void initialize( ){
+    public void initialize() {
         drivetain.arcadeDrive(0, 0);
         lastmoveSpeed = 0;
         currentmovespeed = 0;
@@ -30,16 +31,19 @@ public class Moving extends CommandBase {
     }
 
     @Override
-    public void execute( ){
+    public void execute() {
         lastmoveSpeed = currentmovespeed;
         lastrotatespeed = currentrotatespeed;
         currentmovespeed = -thestick.getRawAxis(Constants.Controllers.JOYSTICKY);
         currentrotatespeed = -thestick.getRawAxis(Constants.Controllers.JOYSTICKZ);
 
+        // Acceleration modifier, The lower this is the faster we wil accelerate, 
+        // But we do not want to be too low or else we will cause motor brown out.
         double acceleration = 0.05;
+
         // for the moving speed
         if (Math.abs(currentmovespeed - lastmoveSpeed) > acceleration) {
-            if (currentmovespeed > lastmoveSpeed){
+            if (currentmovespeed > lastmoveSpeed) {
                 currentmovespeed = lastmoveSpeed + acceleration;
             } else {
                 currentmovespeed = lastmoveSpeed - acceleration;
@@ -47,9 +51,10 @@ public class Moving extends CommandBase {
         } else {
             lastmoveSpeed = currentmovespeed;
         }
+
         // rotate speed
         if (Math.abs(currentrotatespeed - lastrotatespeed) > acceleration) {
-            if (currentrotatespeed > lastrotatespeed){
+            if (currentrotatespeed > lastrotatespeed) {
                 currentrotatespeed = lastrotatespeed + acceleration;
             } else {
                 currentrotatespeed = lastrotatespeed - acceleration;
@@ -58,9 +63,9 @@ public class Moving extends CommandBase {
             lastrotatespeed = currentrotatespeed;
         }
 
+        // After calculating speeds pass them to the arcadeDrive method
         drivetain.arcadeDrive(currentmovespeed, currentrotatespeed);
     }
-
 
     @Override
     public void end(boolean interuppted) {
@@ -71,9 +76,8 @@ public class Moving extends CommandBase {
         currentrotatespeed = 0;
     }
 
-
     @Override 
-    public boolean isFinished( ){
+    public boolean isFinished() {
         return false;
     }
 }
