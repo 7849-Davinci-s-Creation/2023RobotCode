@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Util.CameraState;
 import frc.robot.commands.Moving;
 import frc.robot.commands.SwitchCamera;
 import frc.robot.subsystems.Cameras;
@@ -64,7 +65,8 @@ public class RobotContainer {
    * Configures subsystem's default commands
    */
   public void configureDefault() {
-    camera.setDefaultCommand(new SwitchCamera(camera,joystick, camera.getselectedCamera()));
+    SwitchCamera switchCamera = new SwitchCamera(camera,joystick, camera.getselectedCamera(),CameraState.FRONT,Constants.CameraConstants.FRONT_CAMERA_NAME);
+    camera.setDefaultCommand(switchCamera);
     driveTrain.setDefaultCommand(new Moving(driveTrain, joystick));
   } 
 
