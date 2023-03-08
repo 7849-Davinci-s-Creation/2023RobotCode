@@ -64,7 +64,7 @@ public class RobotContainer {
    * Configures subsystem's default commands
    */
   public void configureDefault() {
-    camera.setDefaultCommand(new SwitchCamera(camera,joystick, camera.getfrontCamera(), camera.getbackCamera(), camera.getselectedCamera()));
+    camera.setDefaultCommand(new SwitchCamera(camera,joystick, camera.getselectedCamera()));
     driveTrain.setDefaultCommand(new Moving(driveTrain, joystick));
   } 
 

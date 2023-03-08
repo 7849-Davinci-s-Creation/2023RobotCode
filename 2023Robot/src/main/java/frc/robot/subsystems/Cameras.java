@@ -34,15 +34,17 @@ public class Cameras extends SubsystemBase implements DashboardConfiguration {
     private final Mat source2;
     private final Mat output2;
 
-    private final int width = 1000;
-    private final int height = 1000;
+    private final int width = 125;
+    private final int height = 125;
 
     // Constructor sets up cameras and cameras output
     public Cameras(){
         frontCamera = CameraServer.startAutomaticCapture(0);
         frontCamera.setResolution(width,height);
+
         backCamera = CameraServer.startAutomaticCapture(1);
         backCamera.setResolution(width,height);
+  
         frontCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
         backCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
 
