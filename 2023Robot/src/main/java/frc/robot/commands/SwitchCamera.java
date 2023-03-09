@@ -43,10 +43,6 @@ public class SwitchCamera extends CommandBase {
                 setCurrentCamera(Constants.CameraConstants.FRONT_CAMERA_NAME);
             }
         }
-        // else if (remote.getRawButtonPressed(7)) {
-        //     camerselected.setString(Constants.CameraConstants.FRONT_CAMERA_NAME);
-        //     SmartDashboard.putString("CurrentView","Front");
-        // }
     }
 
     @Override
