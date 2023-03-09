@@ -34,7 +34,15 @@ public class SwitchCamera extends CommandBase {
         if (remote.getRawButtonPressed(7)) {
             camerselected.setString(currentCamera);
             SmartDashboard.putString("CurrentView", currentCamera);
-        } 
+        } else if (remote.getRawButtonReleased(7)) {
+            if(cameraState == CameraState.FRONT) {
+                setCameraState(CameraState.BACK);
+                setCurrentCamera(Constants.CameraConstants.BACK_CAMERA_NAME);
+            } else {
+                setCameraState(CameraState.FRONT);
+                setCurrentCamera(Constants.CameraConstants.FRONT_CAMERA_NAME);
+            }
+        }
         // else if (remote.getRawButtonPressed(7)) {
         //     camerselected.setString(Constants.CameraConstants.FRONT_CAMERA_NAME);
         //     SmartDashboard.putString("CurrentView","Front");
@@ -43,16 +51,7 @@ public class SwitchCamera extends CommandBase {
 
     @Override
     public void end(boolean interuppted) {
-        if (cameraState.equals(CameraState.FRONT)) {
-            setCameraState(CameraState.BACK);
-            setCurrentCamera(Constants.CameraConstants.BACK_CAMERA_NAME);
-            return;
-        } else if (cameraState.equals(CameraState.BACK)){
-            setCameraState(CameraState.FRONT);
-            setCurrentCamera(Constants.CameraConstants.FRONT_CAMERA_NAME);
-            System.out.println("Running");
-            return;
-        }
+
     }
 
     @Override 
