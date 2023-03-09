@@ -21,11 +21,16 @@ import frc.robot.subsystems.DriveTrain;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  // Subsystems
   private final Cameras camera = new Cameras();
   private final DriveTrain driveTrain = new DriveTrain();
 
   // controllers
   private final Joystick joystick = new Joystick(Constants.Controllers.JOYSTICK_PORT);
+
+  // Commands
+  private SwitchCamera switchCamera = 
+  new SwitchCamera(camera,joystick, camera.getselectedCamera(),CameraState.FRONT,Constants.CameraConstants.FRONT_CAMERA_NAME);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -65,7 +70,6 @@ public class RobotContainer {
    * Configures subsystem's default commands
    */
   public void configureDefault() {
-    SwitchCamera switchCamera = new SwitchCamera(camera,joystick, camera.getselectedCamera(),CameraState.FRONT,Constants.CameraConstants.FRONT_CAMERA_NAME);
     camera.setDefaultCommand(switchCamera);
     driveTrain.setDefaultCommand(new Moving(driveTrain, joystick));
   } 
