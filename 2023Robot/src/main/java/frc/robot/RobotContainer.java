@@ -4,10 +4,13 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Util.CameraState;
+import frc.robot.commands.Autos;
 import frc.robot.commands.Moving;
 import frc.robot.commands.SwitchCamera;
 import frc.robot.subsystems.Cameras;
@@ -32,17 +35,21 @@ public class RobotContainer {
   private SwitchCamera switchCamera = 
   new SwitchCamera(camera,joystick, camera.getselectedCamera(),CameraState.FRONT,Constants.CameraConstants.FRONT_CAMERA_NAME);
 
+  // misc
+  private final SendableChooser<Command> autoMenu = new SendableChooser<>();
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
     // Configure subsystems default command 
     configureDefault();
-    // Configure the SmartDashboard
-    configureDashboard();
-
+    // Configure autos
+    Autos.configureAutos(autoMenu, driveTrain);
     // starting the cameras
     camera.startCameras();
+    // Configure the SmartDashboard
+    configureDashboard();
   }
 
   /**
@@ -63,7 +70,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return null;
+    return autoMenu.getSelected();
   }
 
   /**
@@ -82,5 +89,6 @@ public class RobotContainer {
    */
   public void configureDashboard() {
     camera.configureDashboard();
+    SmartDashboard.putData(autoMenu);
   }
 }

@@ -37,6 +37,24 @@ public class DriveTrain extends SubsystemBase {
         differentialDrive.arcadeDrive(moveSpeed, rotateSpeed);
     }
 
+    public void forward(double power){
+        leftDrive.set(power);
+        rightDrive.set(power);
+    }
+
+    public void backwards(double power){
+        leftDrive.set(-power);
+        rightDrive.set(-power);
+    }
+
+    public void right(double power){
+        rightDrive.set(power);
+    }
+
+    public void left(double power){
+        leftDrive.set(power);
+    }
+
     @Override
     public void periodic() {
 
