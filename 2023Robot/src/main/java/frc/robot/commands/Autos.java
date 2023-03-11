@@ -19,7 +19,7 @@ public final class Autos {
     menu.addOption("Move Forward", moveForwardAuto(driveTrain));
   }
   
-  public static SequentialCommandGroup moveForwardAuto(DriveTrain train){
+  private static SequentialCommandGroup moveForwardAuto(DriveTrain train){
     // use startEndCommand for runninng a command for x seconds
     return new SequentialCommandGroup( new StartEndCommand(
       () -> train.forward(0.25), () -> train.forward(0), train
