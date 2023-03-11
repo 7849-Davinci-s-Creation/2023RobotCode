@@ -5,8 +5,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.StartEndCommand;
+import frc.robot.commands.autocommands.MoveForward;
 import frc.robot.subsystems.DriveTrain;
 
 public final class Autos {
@@ -19,10 +18,7 @@ public final class Autos {
     menu.addOption("Move Forward", moveForwardAuto(driveTrain));
   }
   
-  private static SequentialCommandGroup moveForwardAuto(DriveTrain train){
-    // use startEndCommand for runninng a command for x seconds
-    return new SequentialCommandGroup( new StartEndCommand(
-      () -> train.forward(0.25), () -> train.forward(0), train
-      ).withTimeout(3));
+  private static Command moveForwardAuto(DriveTrain train){
+    return new MoveForward(train, 3, 0.5);
   }
 }
