@@ -44,13 +44,12 @@ public class RobotContainer {
     configureBindings();
     // Configure subsystems default command 
     configureDefault();
-    // Configure the SmartDashboard
-    configureDashboard();
-      // Configure autos
-      Autos.configureAutos(autoMenu, driveTrain);
-
+    // Configure autos
+    Autos.configureAutos(autoMenu, driveTrain);
     // starting the cameras
     camera.startCameras();
+    // Configure the SmartDashboard
+    configureDashboard();
   }
 
   /**
@@ -71,7 +70,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return Autos.moveForwardAuto(driveTrain);
+    return autoMenu.getSelected();
   }
 
   /**
