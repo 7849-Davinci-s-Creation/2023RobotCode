@@ -19,6 +19,6 @@ public final class Autos {
   }
   
   private static Command moveForwardAuto(DriveTrain train){
-    return new MoveForward(train, 3, 0.5);
+    return new MoveForward(train, 0.75, 0.5);
   }
 }
