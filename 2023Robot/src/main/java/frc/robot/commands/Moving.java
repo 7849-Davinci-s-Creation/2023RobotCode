@@ -64,7 +64,7 @@ public class Moving extends CommandBase {
         }
 
         // After calculating speeds pass them to the arcadeDrive method
-        drivetain.arcadeDrive(currentmovespeed / 3, currentrotatespeed / 3);
+        drivetain.arcadeDrive(currentmovespeed / 2.1, currentrotatespeed / 2.1);
     }
 
     @Override
