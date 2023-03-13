@@ -91,4 +91,30 @@ public class RobotContainer {
     camera.configureDashboard();
     SmartDashboard.putData(autoMenu);
   }
+
+  public void robotInit(){
+    // to make sure we are not braked at all when we start up robot
+    driveTrain.setBreakMode(false);
+  }
+
+  public void autonomousInit(){
+    // to make sure we are not braked at all when we start up auto
+    driveTrain.setBreakMode(false);
+  }
+
+  public void autonomousPeriodic(){
+  }
+
+  public void teleoperatedInit(){
+    // to make sure we are not braked at all when we start up teleop
+    driveTrain.setBreakMode(false);
+  }
+
+  public void teleoperatedPeriodic(){
+  }
+
+  public void disabledInit(){
+    // to make sure we are not braked at all when we disable robot
+    driveTrain.setBreakMode(false);
+  }
 }

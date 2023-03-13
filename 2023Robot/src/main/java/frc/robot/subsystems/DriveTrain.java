@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -49,10 +50,26 @@ public class DriveTrain extends SubsystemBase {
 
     public void right(double power){
         rightDrive.set(power);
+        leftDrive.set(-power);
     }
 
     public void left(double power){
         leftDrive.set(power);
+        rightDrive.set(-power);
+    }
+
+    public void setBreakMode(boolean isBraked) {
+        if (isBraked) {
+            frontLeftMotor.setIdleMode(IdleMode.kBrake);
+            frontRightMotor.setIdleMode(IdleMode.kBrake);
+            backRightMotor.setIdleMode(IdleMode.kBrake);
+            backLeftMotor.setIdleMode(IdleMode.kBrake);
+            return;
+        }
+        frontLeftMotor.setIdleMode(IdleMode.kCoast);
+        frontRightMotor.setIdleMode(IdleMode.kCoast);
+        backLeftMotor.setIdleMode(IdleMode.kCoast);
+        backRightMotor.setIdleMode(IdleMode.kCoast);
     }
 
     @Override
