@@ -64,11 +64,10 @@ public class Moving extends CommandBase {
         }
         if (thestick.getRawButtonPressed(6)) {
             drivetain.arcadeDrive(currentmovespeed, currentrotatespeed);
-
+        } else {
+            drivetain.arcadeDrive(currentmovespeed / 1.5, currentrotatespeed / 1.5);
         }
 
-        // After calculating speeds pass them to the arcadeDrive method
-        drivetain.arcadeDrive(currentmovespeed / 1.5, currentrotatespeed / 1.5);
     }
 
     @Override
