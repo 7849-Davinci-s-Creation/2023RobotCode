@@ -7,10 +7,13 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Util.CameraState;
 import frc.robot.commands.Autos;
+import frc.robot.commands.Boost;
+import frc.robot.commands.Creep;
 import frc.robot.commands.Moving;
 import frc.robot.commands.SwitchCamera;
 import frc.robot.subsystems.Cameras;
@@ -31,6 +34,7 @@ public class RobotContainer {
   // controllers
   private final Joystick joystick = new Joystick(Constants.Controllers.JOYSTICK_PORT);
 
+  private final CommandJoystick anotherstick = new CommandJoystick(Constants.Controllers.JOYSTICK_PORT);
   // Commands
   private SwitchCamera switchCamera = 
   new SwitchCamera(camera,joystick, camera.getselectedCamera(),CameraState.FRONT,Constants.CameraConstants.FRONT_CAMERA_NAME);
@@ -62,6 +66,8 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+    anotherstick.button(6).whileTrue(new Boost(driveTrain, joystick));
+    anotherstick.button(5).whileTrue(new Creep(driveTrain, joystick));
   }
 
   /**
