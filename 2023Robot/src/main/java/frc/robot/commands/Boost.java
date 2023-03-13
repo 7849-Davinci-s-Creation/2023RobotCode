@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
 
-public class Moving extends CommandBase {
+public class Boost extends CommandBase {
     private final DriveTrain drivetain;
     private final Joystick thestick;
 
@@ -15,7 +15,7 @@ public class Moving extends CommandBase {
     private double lastrotatespeed;
     private double currentrotatespeed;
 
-    public Moving(DriveTrain drivetain, Joystick thestick) {
+    public Boost(DriveTrain drivetain, Joystick thestick) {
         this.drivetain = drivetain;
         this.thestick = thestick;
         addRequirements(drivetain);
@@ -62,8 +62,10 @@ public class Moving extends CommandBase {
         } else {
             lastrotatespeed = currentrotatespeed;
         }
-       drivetain.arcadeDrive(currentmovespeed / 1.5, currentrotatespeed / 1.5);
-
+        
+        drivetain.arcadeDrive(currentmovespeed, currentrotatespeed);  
+        
+            
     }
 
     @Override
