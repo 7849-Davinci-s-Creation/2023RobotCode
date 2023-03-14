@@ -23,10 +23,31 @@ public final class Autos {
     menu.addOption("Do Nothing", null);
     menu.addOption("Move Forward", moveForwardAuto(driveTrain));
     menu.addOption("Test All Auto Commands\n(WARNING THIS WILL MAKE THE ROBOT PROBABLY GO SOMEWHERE WE DONT WANT IT SO DO IT PROPPED UP)", testAutos(driveTrain));
+    menu.addOption("Blue Side Middle", blueSideMiddleAuto(driveTrain));
   }
   
   private static Command moveForwardAuto(DriveTrain train){
     return new MoveForward(train, 0.75, 0.5);
+  }
+
+  private static SequentialCommandGroup blueSideMiddleAuto(DriveTrain train){
+    return new SequentialCommandGroup(
+      new MoveBackwards(train, 0.3, 0.2),
+      new Brake(train, 0.2),
+      new WaitCommand(0.5),
+      new MoveForward(train, 1, 0.45),
+      new Brake(train, 0.3),
+      new WaitCommand(0.5),
+      new MoveForward(train, 2.5, 0.1),
+      new Brake(train, 0.2),
+      new WaitCommand(0.5),
+      new MoveBackwards(train, 1, 0.4),
+      new Brake(train, 0.3),
+      new WaitCommand(0.5),
+      new MoveRight(train, 0.4, 0.4),
+      new Brake(train, 1),
+      new WaitCommand(0.5)
+    );
   }
 
   private static SequentialCommandGroup testAutos(DriveTrain train){
