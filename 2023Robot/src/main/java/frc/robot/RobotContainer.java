@@ -16,6 +16,10 @@ import frc.robot.commands.Boost;
 import frc.robot.commands.Creep;
 import frc.robot.commands.Moving;
 import frc.robot.commands.SwitchCamera;
+import frc.robot.commands.autocommands.MoveBackwards;
+import frc.robot.commands.autocommands.MoveForward;
+import frc.robot.commands.autocommands.MoveLeft;
+import frc.robot.commands.autocommands.MoveRight;
 import frc.robot.subsystems.Cameras;
 import frc.robot.subsystems.DriveTrain;
 
@@ -68,6 +72,10 @@ public class RobotContainer {
   private void configureBindings() {
     anotherstick.button(6).whileTrue(new Boost(driveTrain, joystick));
     anotherstick.button(5).whileTrue(new Creep(driveTrain, joystick));
+    anotherstick.povUp().onTrue(new MoveForward(driveTrain, .1 ,.1));
+    anotherstick.povDown().onTrue(new MoveBackwards(driveTrain, .1 ,.1));
+    anotherstick.povLeft().onTrue(new MoveLeft(driveTrain, .1 ,.1));
+    anotherstick.povRight().onTrue(new MoveRight(driveTrain, .1 ,.1));
   }
 
   /**
