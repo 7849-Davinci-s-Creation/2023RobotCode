@@ -44,7 +44,7 @@ public final class Autos {
       new MoveBackwards(train, 1, 0.4),
       new Brake(train, 0.3),
       new WaitCommand(0.5),
-      new MoveRight(train, 0.4, 0.4),
+      new MoveRight(train, 0.45, 0.3),
       new Brake(train, 1),
       new WaitCommand(0.5)
     );
