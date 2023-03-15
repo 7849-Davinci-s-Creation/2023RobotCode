@@ -3,7 +3,9 @@
 // the WPILib BSD license file in the root directory of this project.
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -119,12 +121,14 @@ public class RobotContainer {
   public void autonomousPeriodic(){
   }
 
+  Compressor pcmCompressor = new Compressor(0,PneumaticsModuleType.CTREPCM);
   public void teleoperatedInit(){
     // to make sure we are not braked at all when we start up teleop
     driveTrain.setBreakMode(false);
   }
 
   public void teleoperatedPeriodic(){
+    System.out.println(pcmCompressor.isEnabled() + " " + pcmCompressor.getAnalogVoltage());
   }
 
   public void disabledInit(){
