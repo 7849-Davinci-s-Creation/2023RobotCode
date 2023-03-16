@@ -121,14 +121,19 @@ public class RobotContainer {
   public void autonomousPeriodic(){
   }
 
-  Compressor pcmCompressor = new Compressor(0,PneumaticsModuleType.CTREPCM);
+  Compressor pcmCompressor = new Compressor(6,PneumaticsModuleType.CTREPCM);
   public void teleoperatedInit(){
     // to make sure we are not braked at all when we start up teleop
     driveTrain.setBreakMode(false);
+    // pcmCompressor.enableDigital();
   }
 
   public void teleoperatedPeriodic(){
-    System.out.println(pcmCompressor.isEnabled() + " " + pcmCompressor.getAnalogVoltage());
+    System.out.println("Compressor Enabled?" + pcmCompressor.isEnabled());
+    System.out.println("Analog voltage: " + pcmCompressor.getAnalogVoltage());
+    System.out.println("Compressor Current: " + pcmCompressor.getCurrent());
+    System.out.println("Compressor Pressure: " + pcmCompressor.getPressure());
+    System.out.println("Pressure Switch Value: " + pcmCompressor.getPressureSwitchValue());
   }
 
   public void disabledInit(){
