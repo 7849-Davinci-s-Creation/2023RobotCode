@@ -1,8 +1,15 @@
 package frc.robot.commands;
 
+import java.rmi.Remote;
+import java.util.ResourceBundle.Control;
+
+import com.ctre.phoenixpro.controls.jni.ControlJNI;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.Util.Controlstate;
 import frc.robot.subsystems.DriveTrain;
 
 public class Moving extends CommandBase {
@@ -15,9 +22,14 @@ public class Moving extends CommandBase {
     private double lastrotatespeed;
     private double currentrotatespeed;
 
-    public Moving(DriveTrain drivetain, Joystick thestick) {
+    private final double movementNerf = 1.5;
+    
+    private Controlstate controlstate;
+
+    public Moving(DriveTrain drivetain, Joystick thestick, Controlstate defaultsControlstate) {
         this.drivetain = drivetain;
         this.thestick = thestick;
+        this.controlstate = defaultsControlstate;
         addRequirements(drivetain);
     }
     
@@ -62,8 +74,19 @@ public class Moving extends CommandBase {
         } else {
             lastrotatespeed = currentrotatespeed;
         }
-       drivetain.arcadeDrive(currentmovespeed / 1.5, currentrotatespeed / 1.5);
 
+
+        if ( thestick.getRawButtonPressed(9) && controlstate == Controlstate.INVERTED ){
+            drivetain.arcadeDrive(-(currentmovespeed / movementNerf), -(currentrotatespeed / movementNerf));
+        } else if( thestick.getRawButtonReleased(9)){
+            if ( controlstate == Controlstate.INVERTED ){
+                controlstate = Controlstate.NORMAL;
+            } else {
+                controlstate = Controlstate.INVERTED;
+            }
+        } else {
+            drivetain.arcadeDrive(currentmovespeed / movementNerf, currentrotatespeed / movementNerf);
+        }
     }
 
     @Override
