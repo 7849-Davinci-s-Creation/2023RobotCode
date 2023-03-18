@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
 
-public class Moving extends CommandBase {
+public class Invertedmovement extends CommandBase {
     private final DriveTrain drivetain;
     private final Joystick thestick;
 
@@ -18,7 +18,7 @@ public class Moving extends CommandBase {
 
     private final double movementNerf = 1.5;
 
-    public Moving(DriveTrain drivetain, Joystick thestick) {
+    public Invertedmovement(DriveTrain drivetain, Joystick thestick) {
         this.drivetain = drivetain;
         this.thestick = thestick;
         addRequirements(drivetain);
@@ -66,8 +66,8 @@ public class Moving extends CommandBase {
             lastrotatespeed = currentrotatespeed;
         }
 
-        drivetain.arcadeDrive(currentmovespeed / movementNerf, currentrotatespeed / movementNerf);
-        SmartDashboard.putString("Control State", "Normal");
+        drivetain.arcadeDrive(-(currentmovespeed / movementNerf),-(currentrotatespeed / movementNerf));
+        SmartDashboard.putString("Control State", "Inverted");
     }
 
     @Override

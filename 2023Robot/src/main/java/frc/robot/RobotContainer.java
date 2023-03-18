@@ -14,6 +14,7 @@ import frc.robot.Util.CameraState;
 import frc.robot.commands.Autos;
 import frc.robot.commands.Boost;
 import frc.robot.commands.Creep;
+import frc.robot.commands.Invertedmovement;
 import frc.robot.commands.Moving;
 import frc.robot.commands.SwitchCamera;
 import frc.robot.commands.autocommands.MoveBackwards;
@@ -37,11 +38,12 @@ public class RobotContainer {
 
   // controllers
   private final Joystick joystick = new Joystick(Constants.Controllers.JOYSTICK_PORT);
-
   private final CommandJoystick anotherstick = new CommandJoystick(Constants.Controllers.JOYSTICK_PORT);
+
   // Commands
   private SwitchCamera switchCamera = 
   new SwitchCamera(camera,joystick, camera.getselectedCamera(),CameraState.FRONT,Constants.CameraConstants.FRONT_CAMERA_NAME);
+  private Moving moving = new Moving(driveTrain, joystick);
 
   // misc
   private final SendableChooser<Command> autoMenu = new SendableChooser<>();
@@ -72,6 +74,7 @@ public class RobotContainer {
   private void configureBindings() {
     anotherstick.button(6).whileTrue(new Boost(driveTrain, joystick));
     anotherstick.button(5).whileTrue(new Creep(driveTrain, joystick));
+    anotherstick.button(9).whileTrue(new Invertedmovement(driveTrain, joystick));
     anotherstick.povUp().onTrue(new MoveForward(driveTrain, .1 ,.1));
     anotherstick.povDown().onTrue(new MoveBackwards(driveTrain, .1 ,.1));
     anotherstick.povLeft().onTrue(new MoveLeft(driveTrain, .1 ,.1));
@@ -92,7 +95,7 @@ public class RobotContainer {
    */
   public void configureDefault() {
     camera.setDefaultCommand(switchCamera);
-    driveTrain.setDefaultCommand(new Moving(driveTrain, joystick));
+    driveTrain.setDefaultCommand(moving);
   } 
 
   /**
@@ -104,6 +107,7 @@ public class RobotContainer {
   public void configureDashboard() {
     camera.configureDashboard();
     SmartDashboard.putData(autoMenu);
+    driveTrain.configureDashboard();
   }
 
   public void robotInit(){
