@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.autocommands.Brake;
 import frc.robot.commands.autocommands.MoveBackwards;
 import frc.robot.commands.autocommands.MoveForward;
-import frc.robot.commands.autocommands.MoveLeft;
 import frc.robot.commands.autocommands.MoveRight;
 import frc.robot.subsystems.DriveTrain;
 
@@ -22,8 +21,7 @@ public final class Autos {
   public static void configureAutos(SendableChooser<Command> menu, DriveTrain driveTrain){
     menu.addOption("Do Nothing", null);
     menu.addOption("Move Forward", moveForwardAuto(driveTrain));
-    menu.addOption("Test All Auto Commands\n(WARNING THIS WILL MAKE THE ROBOT PROBABLY GO SOMEWHERE WE DONT WANT IT SO DO IT PROPPED UP)", testAutos(driveTrain));
-    menu.addOption("Blue Side Middle", blueSideMiddleAuto(driveTrain));
+    menu.addOption("Middle-Score-Balance", blueSideMiddleAuto(driveTrain));
   }
   
   private static Command moveForwardAuto(DriveTrain train){
@@ -47,22 +45,6 @@ public final class Autos {
       new MoveRight(train, 0.45, 0.3),
       new Brake(train, 1),
       new WaitCommand(0.5)
-    );
-  }
-
-  private static SequentialCommandGroup testAutos(DriveTrain train){
-    return new SequentialCommandGroup(
-    new MoveForward(train, 1, 0.5),
-    new Brake(train, 0.1),
-    new WaitCommand(0.5),
-    new MoveBackwards(train, 1, 0.5),
-    new Brake(train, 0.1),
-    new WaitCommand(0.5),
-    new MoveLeft(train, 1, 0.5),
-    new Brake(train, 0.1),
-    new WaitCommand(0.5),
-    new MoveRight(train, 1, 0.5),
-    new Brake(train, 0.1)
     );
   }
 }
