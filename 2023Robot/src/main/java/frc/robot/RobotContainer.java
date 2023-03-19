@@ -74,7 +74,7 @@ public class RobotContainer {
   private void configureBindings() {
     anotherstick.button(6).whileTrue(new Boost(driveTrain, joystick));
     anotherstick.button(5).whileTrue(new Creep(driveTrain, joystick));
-    anotherstick.button(9).whileTrue(new Invertedmovement(driveTrain, joystick));
+   // anotherstick.button(9).whileTrue(new Invertedmovement(driveTrain, joystick));
     anotherstick.povUp().onTrue(new MoveForward(driveTrain, .1 ,.1));
     anotherstick.povDown().onTrue(new MoveBackwards(driveTrain, .1 ,.1));
     anotherstick.povLeft().onTrue(new MoveLeft(driveTrain, .1 ,.1));
@@ -126,6 +126,13 @@ public class RobotContainer {
   public void teleoperatedInit(){
     // to make sure we are not braked at all when we start up teleop
     driveTrain.setBreakMode(false);
+
+    // needs to be tested
+    if (joystick.getRawButtonPressed(9)) {
+      driveTrain.setDefaultCommand(new Invertedmovement(driveTrain, joystick));
+    } else {
+      driveTrain.setDefaultCommand(moving);
+    }
   }
 
   public void teleoperatedPeriodic(){
