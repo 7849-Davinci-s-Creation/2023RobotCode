@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
 
 public class Creep extends CommandBase {
@@ -63,10 +64,11 @@ public class Creep extends CommandBase {
             lastrotatespeed = currentrotatespeed;
         }
         
-       
-        drivetain.arcadeDrive(currentmovespeed / 2.2, currentrotatespeed / 2.2);
-        
-
+        if (RobotContainer.isInverted) {
+            drivetain.arcadeDrive(-(currentmovespeed / 2.2), currentrotatespeed / 2.2);
+        } else {
+            drivetain.arcadeDrive(currentmovespeed / 2.2, currentrotatespeed / 2.2);
+        }
     }
 
     @Override

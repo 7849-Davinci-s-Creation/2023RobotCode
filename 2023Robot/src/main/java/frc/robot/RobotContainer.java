@@ -40,13 +40,13 @@ public class RobotContainer {
   private final Joystick joystick = new Joystick(Constants.Controllers.JOYSTICK_PORT);
   private final CommandJoystick anotherstick = new CommandJoystick(Constants.Controllers.JOYSTICK_PORT);
 
-  // Commands
-  private SwitchCamera switchCamera = 
-  new SwitchCamera(camera,joystick, camera.getselectedCamera(),CameraState.FRONT,Constants.CameraConstants.FRONT_CAMERA_NAME);
-  private Moving moving = new Moving(driveTrain, joystick);
-
   // misc
   private final SendableChooser<Command> autoMenu = new SendableChooser<>();
+  public static boolean isInverted = false;
+
+    // Commands
+    private SwitchCamera switchCamera = new SwitchCamera(camera,joystick, camera.getselectedCamera(),CameraState.FRONT,Constants.CameraConstants.FRONT_CAMERA_NAME);
+    private Moving moving = new Moving(driveTrain, joystick);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -74,7 +74,7 @@ public class RobotContainer {
   private void configureBindings() {
     anotherstick.button(6).whileTrue(new Boost(driveTrain, joystick));
     anotherstick.button(5).whileTrue(new Creep(driveTrain, joystick));
-   // anotherstick.button(9).whileTrue(new Invertedmovement(driveTrain, joystick));
+    anotherstick.button(9).whileTrue(new Invertedmovement(driveTrain, joystick));
     anotherstick.povUp().onTrue(new MoveForward(driveTrain, .1 ,.1));
     anotherstick.povDown().onTrue(new MoveBackwards(driveTrain, .1 ,.1));
     anotherstick.povLeft().onTrue(new MoveLeft(driveTrain, .1 ,.1));
@@ -126,20 +126,23 @@ public class RobotContainer {
   public void teleoperatedInit(){
     // to make sure we are not braked at all when we start up teleop
     driveTrain.setBreakMode(false);
-
-    // needs to be tested
-    if (joystick.getRawButtonPressed(9)) {
-      driveTrain.setDefaultCommand(new Invertedmovement(driveTrain, joystick));
-    } else {
-      driveTrain.setDefaultCommand(moving);
-    }
   }
 
   public void teleoperatedPeriodic(){
+    if (joystick.getRawButtonPressed(9)) {
+      isInverted = true;
+    } else {
+      isInverted = false;
+    }
   }
 
   public void disabledInit(){
     // to make sure we are not braked at all when we disable robot
     driveTrain.setBreakMode(false);
+  }
+
+  // command utility
+  public static boolean getInverted() {
+    return isInverted;
   }
 }
