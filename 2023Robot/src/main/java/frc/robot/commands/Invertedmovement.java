@@ -66,7 +66,7 @@ public class Invertedmovement extends CommandBase {
             lastrotatespeed = currentrotatespeed;
         }
 
-        drivetain.arcadeDrive(-(currentmovespeed / movementNerf),-(currentrotatespeed / movementNerf));
+        drivetain.arcadeDrive(-(currentmovespeed / movementNerf), currentrotatespeed / movementNerf);
         SmartDashboard.putString("Control State", "Inverted");
     }
 
