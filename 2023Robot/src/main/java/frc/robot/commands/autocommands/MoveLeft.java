@@ -17,15 +17,14 @@ public class MoveLeft extends CommandBase {
        this.power = power;  
     }
 
- @Override
+    @Override
     public void initialize() {
-        startingtime = System.currentTimeMillis();
-
+      startingtime = System.currentTimeMillis();
     }
 
     @Override
     public void execute() {
-       fastplane.left(power);
+      fastplane.left(power);
     }
 
     @Override
