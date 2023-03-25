@@ -15,6 +15,8 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.Boost;
 import frc.robot.commands.Creep;
 import frc.robot.commands.Invertedmovement;
+import frc.robot.commands.MoveGuardDown;
+import frc.robot.commands.MoveGuardUp;
 import frc.robot.commands.Moving;
 import frc.robot.commands.SwitchCamera;
 import frc.robot.commands.autocommands.MoveBackwards;
@@ -23,6 +25,7 @@ import frc.robot.commands.autocommands.MoveLeft;
 import frc.robot.commands.autocommands.MoveRight;
 import frc.robot.subsystems.Cameras;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Guard;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -35,6 +38,7 @@ public class RobotContainer {
   // Subsystems
   private final Cameras camera = new Cameras();
   private final DriveTrain driveTrain = new DriveTrain();
+  private final Guard guard = new Guard();
 
   // controllers
   private final Joystick joystick = new Joystick(Constants.Controllers.JOYSTICK_PORT);
@@ -79,6 +83,8 @@ public class RobotContainer {
     anotherstick.povDown().onTrue(new MoveBackwards(driveTrain, .1 ,.1));
     anotherstick.povLeft().onTrue(new MoveLeft(driveTrain, .1 ,.1));
     anotherstick.povRight().onTrue(new MoveRight(driveTrain, .1 ,.1));
+    anotherstick.button(1).onTrue(new MoveGuardDown(guard));
+    anotherstick.button(1).onFalse(new MoveGuardUp(guard));
   }
 
   /**
