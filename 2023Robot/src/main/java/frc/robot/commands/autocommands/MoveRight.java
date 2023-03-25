@@ -19,13 +19,12 @@ public class MoveRight extends CommandBase{
 
  @Override
     public void initialize() {
-        startingtime = System.currentTimeMillis();
-
+      startingtime = System.currentTimeMillis();
     }
 
     @Override
     public void execute() {
-       fastplane.right(power);
+      fastplane.right(power);
     }
 
     @Override

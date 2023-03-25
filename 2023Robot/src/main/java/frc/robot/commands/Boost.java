@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
 
 public class Boost extends CommandBase {
@@ -63,9 +64,11 @@ public class Boost extends CommandBase {
             lastrotatespeed = currentrotatespeed;
         }
         
-        drivetain.arcadeDrive(currentmovespeed, currentrotatespeed);  
-        
-            
+        if (RobotContainer.isInverted) {
+            drivetain.arcadeDrive(-currentmovespeed, currentrotatespeed);  
+        } else {
+            drivetain.arcadeDrive(currentmovespeed, currentrotatespeed);
+        }
     }
 
     @Override

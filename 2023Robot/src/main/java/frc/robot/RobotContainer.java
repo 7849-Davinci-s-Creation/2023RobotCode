@@ -40,13 +40,13 @@ public class RobotContainer {
   private final Joystick joystick = new Joystick(Constants.Controllers.JOYSTICK_PORT);
   private final CommandJoystick anotherstick = new CommandJoystick(Constants.Controllers.JOYSTICK_PORT);
 
-  // Commands
-  private SwitchCamera switchCamera = 
-  new SwitchCamera(camera,joystick, camera.getselectedCamera(),CameraState.FRONT,Constants.CameraConstants.FRONT_CAMERA_NAME);
-  private Moving moving = new Moving(driveTrain, joystick);
-
   // misc
   private final SendableChooser<Command> autoMenu = new SendableChooser<>();
+  public static boolean isInverted = false;
+
+    // Commands
+    private SwitchCamera switchCamera = new SwitchCamera(camera,joystick, camera.getselectedCamera(),CameraState.FRONT,Constants.CameraConstants.FRONT_CAMERA_NAME);
+    private Moving moving = new Moving(driveTrain, joystick);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -129,10 +129,20 @@ public class RobotContainer {
   }
 
   public void teleoperatedPeriodic(){
+    if (joystick.getRawButtonPressed(9)) {
+      isInverted = true;
+    } else {
+      isInverted = false;
+    }
   }
 
   public void disabledInit(){
     // to make sure we are not braked at all when we disable robot
     driveTrain.setBreakMode(false);
+  }
+
+  // command utility
+  public static boolean getInverted() {
+    return isInverted;
   }
 }
