@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
 
 public class Moving extends CommandBase {
@@ -66,8 +67,13 @@ public class Moving extends CommandBase {
             lastrotatespeed = currentrotatespeed;
         }
 
-        drivetain.arcadeDrive(currentmovespeed / movementNerf, currentrotatespeed / movementNerf);
-        SmartDashboard.putString("Control State", "Normal");
+        if (RobotContainer.isInverted) {
+            drivetain.arcadeDrive(-(currentmovespeed / movementNerf), currentrotatespeed / movementNerf);
+            SmartDashboard.putString("Control State", "Inverted");
+        } else {
+            drivetain.arcadeDrive(currentmovespeed / movementNerf, currentrotatespeed / movementNerf);
+            SmartDashboard.putString("Control State", "Normal");
+        }
     }
 
     @Override

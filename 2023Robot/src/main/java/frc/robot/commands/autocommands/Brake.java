@@ -15,7 +15,7 @@ public class Brake extends CommandBase {
        this.seconds = seconds;
     }
 
- @Override
+    @Override
     public void initialize() {
         startingtime = System.currentTimeMillis();
     }
