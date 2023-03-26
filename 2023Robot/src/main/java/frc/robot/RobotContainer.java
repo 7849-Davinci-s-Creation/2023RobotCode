@@ -14,9 +14,8 @@ import frc.robot.Util.CameraState;
 import frc.robot.commands.Autos;
 import frc.robot.commands.Boost;
 import frc.robot.commands.Creep;
+import frc.robot.commands.GuardToggle;
 import frc.robot.commands.Invertedmovement;
-import frc.robot.commands.MoveGuardDown;
-import frc.robot.commands.MoveGuardUp;
 import frc.robot.commands.Moving;
 import frc.robot.commands.SwitchCamera;
 import frc.robot.commands.autocommands.MoveBackwards;
@@ -76,6 +75,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+    // movement bindings
     anotherstick.button(6).whileTrue(new Boost(driveTrain, joystick));
     anotherstick.button(5).whileTrue(new Creep(driveTrain, joystick));
     anotherstick.button(9).whileTrue(new Invertedmovement(driveTrain, joystick));
@@ -83,8 +83,8 @@ public class RobotContainer {
     anotherstick.povDown().onTrue(new MoveBackwards(driveTrain, .1 ,.1));
     anotherstick.povLeft().onTrue(new MoveLeft(driveTrain, .1 ,.1));
     anotherstick.povRight().onTrue(new MoveRight(driveTrain, .1 ,.1));
-    anotherstick.button(1).onTrue(new MoveGuardDown(guard));
-    anotherstick.button(1).onFalse(new MoveGuardUp(guard));
+    // guard bindings
+    anotherstick.button(1).onTrue(new GuardToggle(guard));
   }
 
   /**

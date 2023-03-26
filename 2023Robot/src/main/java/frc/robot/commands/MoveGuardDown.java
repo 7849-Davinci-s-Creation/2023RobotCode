@@ -13,11 +13,12 @@ public class MoveGuardDown extends CommandBase {
 
     @Override
     public void initialize() {
+        guard.guardDown();
     }
 
     @Override
     public void execute() {
-        guard.guardDown();
+        // guard.guardDown();
     }
 
     @Override
@@ -27,6 +28,6 @@ public class MoveGuardDown extends CommandBase {
 
     @Override 
     public boolean isFinished() {
-        return false;
+        return true;
     }
 }

@@ -28,4 +28,8 @@ public final class Constants {
         public static final String FRONT_CAMERA_NAME = "Front";
         public static final String BACK_CAMERA_NAME = "Back";
     }
+    public enum GuardState {
+        UP,
+        DOWN
+    }
 }
