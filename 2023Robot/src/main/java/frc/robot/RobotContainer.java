@@ -124,6 +124,8 @@ public class RobotContainer {
   public void autonomousInit(){
     // to make sure we are not braked at all when we start up auto
     driveTrain.setBreakMode(false);
+    // ensure that guard piston goes up when auto starts
+    guard.guardUp();
   }
 
   public void autonomousPeriodic(){
@@ -132,6 +134,8 @@ public class RobotContainer {
   public void teleoperatedInit(){
     // to make sure we are not braked at all when we start up teleop
     driveTrain.setBreakMode(false);
+    // ensure that guard piston goes up when teleop starts
+    guard.guardUp();
   }
 
   public void teleoperatedPeriodic(){
