@@ -14,6 +14,7 @@ import frc.robot.Util.CameraState;
 import frc.robot.commands.Autos;
 import frc.robot.commands.Boost;
 import frc.robot.commands.Creep;
+import frc.robot.commands.GuardToggle;
 import frc.robot.commands.Invertedmovement;
 import frc.robot.commands.Moving;
 import frc.robot.commands.SwitchCamera;
@@ -23,6 +24,7 @@ import frc.robot.commands.autocommands.MoveLeft;
 import frc.robot.commands.autocommands.MoveRight;
 import frc.robot.subsystems.Cameras;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Guard;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -35,6 +37,7 @@ public class RobotContainer {
   // Subsystems
   private final Cameras camera = new Cameras();
   private final DriveTrain driveTrain = new DriveTrain();
+  private final Guard guard = new Guard();
 
   // controllers
   private final Joystick joystick = new Joystick(Constants.Controllers.JOYSTICK_PORT);
@@ -72,6 +75,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+    // movement bindings
     anotherstick.button(6).whileTrue(new Boost(driveTrain, joystick));
     anotherstick.button(5).whileTrue(new Creep(driveTrain, joystick));
     anotherstick.button(9).whileTrue(new Invertedmovement(driveTrain, joystick));
@@ -79,6 +83,8 @@ public class RobotContainer {
     anotherstick.povDown().onTrue(new MoveBackwards(driveTrain, .1 ,.1));
     anotherstick.povLeft().onTrue(new MoveLeft(driveTrain, .1 ,.1));
     anotherstick.povRight().onTrue(new MoveRight(driveTrain, .1 ,.1));
+    // guard bindings
+    anotherstick.button(1).onTrue(new GuardToggle(guard));
   }
 
   /**
@@ -87,7 +93,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return autoMenu.getSelected();
+   return autoMenu.getSelected();
   }
 
   /**
@@ -118,6 +124,8 @@ public class RobotContainer {
   public void autonomousInit(){
     // to make sure we are not braked at all when we start up auto
     driveTrain.setBreakMode(false);
+    // ensure that guard piston goes up when auto starts
+    guard.guardUp();
   }
 
   public void autonomousPeriodic(){
@@ -126,6 +134,8 @@ public class RobotContainer {
   public void teleoperatedInit(){
     // to make sure we are not braked at all when we start up teleop
     driveTrain.setBreakMode(false);
+    // ensure that guard piston goes up when teleop starts
+    guard.guardUp();
   }
 
   public void teleoperatedPeriodic(){
