@@ -93,7 +93,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return autoMenu.getSelected();
+   return autoMenu.getSelected();
   }
 
   /**

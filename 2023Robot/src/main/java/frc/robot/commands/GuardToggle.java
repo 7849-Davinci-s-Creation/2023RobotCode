@@ -13,7 +13,7 @@ public class GuardToggle extends CommandBase {
 
     @Override
     public void initialize() {
-        this.guard.changeState();
+      this.guard.changeState();
     }
 
     @Override
