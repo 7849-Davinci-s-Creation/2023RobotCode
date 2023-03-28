@@ -23,6 +23,7 @@ public final class Autos {
     menu.addOption("Move Forward", moveForwardAuto(driveTrain));
     menu.addOption("Score-Balance Red Bumps", scoreBalanceRedBumps(driveTrain));
     menu.addOption("Score-Balance Blue Bumps", scoreBalanceBlueBumps(driveTrain));
+    menu.addOption("Score-Move", scoreMove(driveTrain));
   }
   
   private static Command moveForwardAuto(DriveTrain train){
@@ -67,5 +68,10 @@ public final class Autos {
       new Brake(train, 1),
       new WaitCommand(0.5)
     );
+  }
+
+  //TODO this needs to be made
+  private static SequentialCommandGroup scoreMove(DriveTrain train) {
+    return null;
   }
 }
