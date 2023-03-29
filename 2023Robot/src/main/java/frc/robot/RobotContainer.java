@@ -85,6 +85,11 @@ public class RobotContainer {
     anotherstick.povRight().onTrue(new MoveRight(driveTrain, .1 ,.1));
     // guard bindings
     anotherstick.button(1).onTrue(new GuardToggle(guard));
+    // practice match auto bindings
+    anotherstick.button(12).whileTrue(Autos.scoreBalanceBlueBumps(driveTrain));
+    anotherstick.button(11).whileTrue(Autos.scoreBalanceRedBumps(driveTrain));
+    anotherstick.button(10).whileTrue(Autos.scoreMove(driveTrain));
+    anotherstick.button(8).whileTrue(Autos.speedBumpScoreMove(driveTrain));
   }
 
   /**

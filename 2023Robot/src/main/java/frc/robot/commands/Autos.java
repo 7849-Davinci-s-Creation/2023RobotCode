@@ -27,11 +27,11 @@ public final class Autos {
     menu.addOption("Speed Bump", speedBumpScoreMove(driveTrain));
   }
   
-  private static Command moveForwardAuto(DriveTrain train){
+  public static Command moveForwardAuto(DriveTrain train){
     return new MoveForward(train, 0.75, 0.5);
   }
 
-  private static SequentialCommandGroup scoreBalanceRedBumps(DriveTrain train){
+  public static SequentialCommandGroup scoreBalanceRedBumps(DriveTrain train){
     return new SequentialCommandGroup(
       new MoveBackwards(train, 0.3, 0.3),
       new Brake(train, 0.2),
@@ -51,7 +51,7 @@ public final class Autos {
     );
   }
 
-  private static SequentialCommandGroup scoreBalanceBlueBumps(DriveTrain train) {
+  public static SequentialCommandGroup scoreBalanceBlueBumps(DriveTrain train) {
     return new SequentialCommandGroup(
       new MoveBackwards(train, 0.3, 0.3),
       new Brake(train, 0.2),
@@ -72,7 +72,7 @@ public final class Autos {
   }
 
   //TODO this needs to be made
-  private static SequentialCommandGroup scoreMove(DriveTrain train) {
+  public static SequentialCommandGroup scoreMove(DriveTrain train) {
     return new SequentialCommandGroup(new MoveBackwards(train, 0.3, 0.3),
     new Brake(train, 0.2),
     new WaitCommand(0.5),
@@ -81,7 +81,7 @@ public final class Autos {
     new WaitCommand(0.5));
   }
 
-  private static SequentialCommandGroup speedBumpScoreMove(DriveTrain train){
+  public static SequentialCommandGroup speedBumpScoreMove(DriveTrain train){
     return new SequentialCommandGroup(new MoveBackwards(train, 0.3, 0.3),
     new Brake(train, 0.2),
     new WaitCommand(0.5),
