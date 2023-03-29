@@ -93,6 +93,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+   // return autoMenu.getSelected();
    return autoMenu.getSelected();
   }
 
@@ -149,6 +150,10 @@ public class RobotContainer {
   public void disabledInit(){
     // to make sure we are not braked at all when we disable robot
     driveTrain.setBreakMode(false);
+  }
+
+  public void disabledPeriodic() {
+    SmartDashboard.putData(autoMenu);
   }
 
   // command utility
