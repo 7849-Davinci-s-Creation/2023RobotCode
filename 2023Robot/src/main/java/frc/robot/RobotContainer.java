@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 package frc.robot;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -47,9 +48,14 @@ public class RobotContainer {
   private final SendableChooser<Command> autoMenu = new SendableChooser<>();
   public static boolean isInverted = false;
 
-    // Commands
-    private SwitchCamera switchCamera = new SwitchCamera(camera,joystick, camera.getselectedCamera(),CameraState.FRONT,Constants.CameraConstants.FRONT_CAMERA_NAME);
-    private Moving moving = new Moving(driveTrain, joystick);
+  // Commands
+  private SwitchCamera switchCamera = new SwitchCamera(camera,joystick, camera.getselectedCamera(),CameraState.BACK,Constants.CameraConstants.BACK_CAMERA_NAME);
+  private Moving moving = new Moving(driveTrain, joystick);
+
+  //Gyro
+  private final ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -58,7 +64,7 @@ public class RobotContainer {
     // Configure subsystems default command 
     configureDefault();
     // Configure autos
-    Autos.configureAutos(autoMenu, driveTrain);
+    Autos.configureAutos(autoMenu, driveTrain,gyro);
     // starting the cameras
     camera.startCameras();
     // Configure the SmartDashboard
@@ -86,10 +92,10 @@ public class RobotContainer {
     // guard bindings
     anotherstick.button(1).onTrue(new GuardToggle(guard));
     // practice match auto bindings
-    anotherstick.button(12).whileTrue(Autos.scoreBalanceBlueBumps(driveTrain));
-    anotherstick.button(11).whileTrue(Autos.scoreBalanceRedBumps(driveTrain));
-    anotherstick.button(10).whileTrue(Autos.scoreMove(driveTrain));
-    anotherstick.button(8).whileTrue(Autos.speedBumpScoreMove(driveTrain));
+    // anotherstick.button(12).whileTrue(Autos.scoreBalanceBlueBumps(driveTrain));
+    // anotherstick.button(11).whileTrue(Autos.scoreBalanceRedBumps(driveTrain));
+    // anotherstick.button(10).whileTrue(Autos.scoreMove(driveTrain));
+    // anotherstick.button(8).whileTrue(Autos.speedBumpScoreMove(driveTrain));
   }
 
   /**
@@ -119,12 +125,14 @@ public class RobotContainer {
   public void configureDashboard() {
     camera.configureDashboard();
     SmartDashboard.putData(autoMenu);
+    SmartDashboard.putNumber("Gyro", gyro.getAngle());
     driveTrain.configureDashboard();
   }
 
   public void robotInit(){
     // to make sure we are not braked at all when we start up robot
     driveTrain.setBreakMode(false);
+    SmartDashboard.putString("CurrentView", Constants.CameraConstants.BACK_CAMERA_NAME);
   }
 
   public void autonomousInit(){
@@ -132,6 +140,7 @@ public class RobotContainer {
     driveTrain.setBreakMode(false);
     // ensure that guard piston goes up when auto starts
     guard.guardUp();
+    SmartDashboard.putString("CurrentView", Constants.CameraConstants.BACK_CAMERA_NAME);
   }
 
   public void autonomousPeriodic(){
@@ -142,6 +151,7 @@ public class RobotContainer {
     driveTrain.setBreakMode(false);
     // ensure that guard piston goes up when teleop starts
     guard.guardUp();
+    SmartDashboard.putString("CurrentView", Constants.CameraConstants.BACK_CAMERA_NAME);
   }
 
   public void teleoperatedPeriodic(){
@@ -150,6 +160,7 @@ public class RobotContainer {
     } else {
       isInverted = false;
     }
+    SmartDashboard.putNumber("Gyro", gyro.getAngle());
   }
 
   public void disabledInit(){
