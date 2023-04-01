@@ -11,6 +11,7 @@ public class AutoBalanceWithDriveBack extends CommandBase {
     private ADXRS450_Gyro gyrl;
     private STATEMACHINE currentState;
     private int driveBackCounter;
+    private int lastTime;
 
     public AutoBalance(DriveTrain dt, ADXRS450_Gyro gyr){
         this.dtl = dt;
@@ -24,6 +25,7 @@ public class AutoBalanceWithDriveBack extends CommandBase {
         dtl.forward(0);
         currentState = DRIVEFORWARD;
         driveBackCounter = 0;
+        lastTime = 0;
     }
 
     @Override
@@ -40,12 +42,13 @@ public class AutoBalanceWithDriveBack extends CommandBase {
                 dtl.forward(0.15)
                 if (gyrl.getAngle() < 5){
                     currentState = DRIVEBACK;
+                    lastTime = Utility.getFPGATime();
                 }
                 break;
 
             case DRIVEBACK:
                 dtl.forward(-0.2)
-                if (driveBackCounter > 75){
+                if (Utility.getFPGATime() - lastTime > 2000){
                     currentState = END;
                 }
                 driveBackCounter ++;
