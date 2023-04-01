@@ -6,7 +6,9 @@ import frc.robot.subsystems.DriveTrain;
 
 public class AutoBalance extends CommandBase {
 
-    private enum STATEMACHINE {DRIVEFORWARD, DRIVEUP, DRIVEBACK}
+    private enum STATEMACHINE {
+        DRIVEFORWARD, DRIVEUP, DRIVEBACK
+    }
     private DriveTrain dtl;
     private ADXRS450_Gyro gyrl;
     private STATEMACHINE currentState;
@@ -21,7 +23,7 @@ public class AutoBalance extends CommandBase {
     public void initialize() {
         gyrl.reset();
         dtl.forward(0);
-        currentState = DRIVEFORWARD;
+        currentState = STATEMACHINE.DRIVEFORWARD;
     }
 
     @Override
@@ -30,12 +32,16 @@ public class AutoBalance extends CommandBase {
             case DRIVEFORWARD: 
                 dtl.forward(0.2);
                 if (gyrl.getAngle() > 5){
-                    currentState = DRIVEUP;
+                    currentState = STATEMACHINE.DRIVEUP;
                 }
                 break;
 
             case DRIVEUP:
-                dtl.forward(0.1*(gyrl.getAngle()/45) + 0.1)
+                dtl.forward(0.1*(gyrl.getAngle()/45) + 0.1);
+                break;
+            case DRIVEBACK:
+                break;
+            default:
                 break;
         }
     }
@@ -49,7 +55,7 @@ public class AutoBalance extends CommandBase {
 
     @Override 
     public boolean isFinished() {
-        return gyrl.getAngle() < 5 && (currentState == DRIVEUP);
+        return gyrl.getAngle() < 5 && (currentState == STATEMACHINE.DRIVEUP);
     }
     
 }
