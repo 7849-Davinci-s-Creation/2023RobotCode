@@ -28,7 +28,8 @@ public final class Autos {
     menu.addOption("Score Balance", scoreBalance(driveTrain));
     menu.addOption("Score-Move", scoreMove(driveTrain));
     menu.addOption("Speed Bump", speedBumpScoreMove(driveTrain));
-    // menu.addOption("REMOVE ME", new AutoBalance(driveTrain,gyro));
+    // menu.addOption("Elias Auto Balance", new AutoBalance(driveTrain,gyro));
+    // menu.addOption("DriveForward AutoBalance", new AutoBalance(driveTrain,gyro));
   }
   
   public static Command moveForwardAuto(DriveTrain train){

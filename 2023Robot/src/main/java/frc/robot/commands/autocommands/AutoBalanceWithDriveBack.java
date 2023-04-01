@@ -6,13 +6,15 @@ import frc.robot.subsystems.DriveTrain;
 
 public class AutoBalanceWithDriveBack extends CommandBase {
 
-    private enum STATEMACHINE {DRIVEFORWARD, DRIVEUP, DRIVEBACK, END}
+    private enum STATEMACHINE {
+        DRIVEFORWARD, DRIVEUP, DRIVEBACK, END
+    }
     private DriveTrain dtl;
     private ADXRS450_Gyro gyrl;
     private STATEMACHINE currentState;
     private int driveBackCounter;
 
-    public AutoBalance(DriveTrain dt, ADXRS450_Gyro gyr){
+    public AutoBalanceWithDriveBack(DriveTrain dt, ADXRS450_Gyro gyr){
         this.dtl = dt;
         this.gyrl = gyr;
         addRequirements(this.dtl);
@@ -22,7 +24,7 @@ public class AutoBalanceWithDriveBack extends CommandBase {
     public void initialize() {
         gyrl.reset();
         dtl.forward(0);
-        currentState = DRIVEFORWARD;
+        currentState = STATEMACHINE.DRIVEFORWARD;
         driveBackCounter = 0;
     }
 
@@ -32,23 +34,27 @@ public class AutoBalanceWithDriveBack extends CommandBase {
             case DRIVEFORWARD: 
                 dtl.forward(0.2);
                 if (gyrl.getAngle() > 5){
-                    currentState = DRIVEUP;
+                    currentState = STATEMACHINE.DRIVEUP;
                 }
                 break;
 
             case DRIVEUP:
-                dtl.forward(0.15)
+                dtl.forward(0.15);
                 if (gyrl.getAngle() < 5){
-                    currentState = DRIVEBACK;
+                    currentState =STATEMACHINE.DRIVEBACK;
                 }
                 break;
 
             case DRIVEBACK:
-                dtl.forward(-0.2)
+                dtl.forward(-0.2);
                 if (driveBackCounter > 75){
-                    currentState = END;
+                    currentState = STATEMACHINE.END;
                 }
                 driveBackCounter ++;
+                break;
+            case END:
+                break;
+            default:
                 break;
         }
     }
@@ -62,7 +68,7 @@ public class AutoBalanceWithDriveBack extends CommandBase {
 
     @Override 
     public boolean isFinished() {
-        return currentState == END;
+        return currentState == STATEMACHINE.END;
     }
     
 }
