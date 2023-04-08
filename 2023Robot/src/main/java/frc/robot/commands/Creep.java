@@ -65,9 +65,9 @@ public class Creep extends CommandBase {
         }
         
         if (RobotContainer.isInverted) {
-            drivetain.arcadeDrive(-(currentmovespeed / 2.2), currentrotatespeed / 2.2);
+            drivetain.arcadeDrive(-(currentmovespeed / 2.6), currentrotatespeed / 2.6);
         } else {
-            drivetain.arcadeDrive(currentmovespeed / 2.2, currentrotatespeed / 2.2);
+            drivetain.arcadeDrive(currentmovespeed / 2.6, currentrotatespeed / 2.2);
         }
     }
 
