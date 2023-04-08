@@ -44,15 +44,15 @@ public class AutoBalanceWithDriveBack extends CommandBase {
                 dtl.forward(0.15);
                 if (gyrl.getAngle() < 5){
                     currentState = STATEMACHINE.DRIVEBACK;
-                    lastTime = Utility.getFPGATime();
+                   // lastTime = Utility.getFPGATime();
                 }
                 break;
 
             case DRIVEBACK:
-                dtl.forward(-0.2)
-                if (Utility.getFPGATime() - lastTime > 2000){
-                    currentState = STATEMACHINE.END;
-                }
+                dtl.forward(-0.2);
+                // if (Utility.getFPGATime() - lastTime > 2000){
+                //     currentState = STATEMACHINE.END;
+                // }
                 driveBackCounter ++;
                 break;
             case END:

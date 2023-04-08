@@ -25,11 +25,11 @@ public final class Autos {
     menu.addOption("Move Forward", moveForwardAuto(driveTrain));
     // menu.addOption("Score-Balance Red Bumps", scoreBalanceRedBumps(driveTrain));
     // menu.addOption("Score-Balance Blue Bumps", scoreBalanceBlueBumps(driveTrain));
-    menu.addOption("Score Balance", scoreBalance(driveTrain));
+    menu.addOption("Score Balance", gyroBalance(driveTrain, gyro));
     menu.addOption("Score-Move", scoreMove(driveTrain));
     menu.addOption("Speed Bump", speedBumpScoreMove(driveTrain));
     // menu.addOption("Elias Auto Balance", new AutoBalance(driveTrain,gyro));
-    // menu.addOption("DriveForward AutoBalance", new AutoBalance(driveTrain,gyro));
+    // menu.addOption("AutoBalance", new AutoBalance(driveTrain,gyro));
   }
   
   public static Command moveForwardAuto(DriveTrain train){
@@ -105,6 +105,16 @@ public final class Autos {
       new WaitCommand(0.5),
       new MoveRight(train, 0.45, 0.45),
       new Brake(train, 2)
+    );
+  }
+
+  private static final SequentialCommandGroup gyroBalance(DriveTrain train, ADXRS450_Gyro gyr) {
+    return new SequentialCommandGroup(
+      new MoveBackwards(train, 0.3, 0.3),
+      new Brake(train, 0.2),
+      new WaitCommand(0.5),
+      new MoveForward(train, 0.2, 0.25),
+      new AutoBalance(train, gyr)
     );
   }
 }
