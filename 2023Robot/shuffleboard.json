@@ -1,0 +1,125 @@
+{
+  "tabPane": [
+    {
+      "title": "SmartDashboard",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "SmartDashboard/",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {
+          "5,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/CurrentView",
+              "_title": "CurrentView",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/SendableChooser[0]",
+              "_title": "SendableChooser[0]",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "1,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Gyro",
+              "_title": "Gyro",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Control State",
+              "_title": "Control State",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Has Target",
+              "_title": "Has Target",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "2,0": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://USB Camera 0",
+              "_title": "USB Camera 0",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": -1,
+              "imageHeight": -1
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "LiveWindow",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "LiveWindow/",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {}
+      }
+    }
+  ],
+  "windowGeometry": {
+    "x": -137.0,
+    "y": 106.0,
+    "width": 1366.0,
+    "height": 728.0
+  }
+}

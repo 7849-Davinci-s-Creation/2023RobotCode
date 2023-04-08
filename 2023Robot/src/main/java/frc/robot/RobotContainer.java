@@ -26,6 +26,7 @@ import frc.robot.commands.autocommands.MoveRight;
 import frc.robot.subsystems.Cameras;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Guard;
+import frc.robot.subsystems.PhotonVision;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -39,6 +40,7 @@ public class RobotContainer {
   private final Cameras camera = new Cameras();
   private final DriveTrain driveTrain = new DriveTrain();
   private final Guard guard = new Guard();
+  private final PhotonVision photonVision = new PhotonVision();
 
   // controllers
   private final Joystick joystick = new Joystick(Constants.Controllers.JOYSTICK_PORT);
@@ -127,6 +129,7 @@ public class RobotContainer {
     SmartDashboard.putData(autoMenu);
     SmartDashboard.putNumber("Gyro", gyro.getAngle());
     driveTrain.configureDashboard();
+    photonVision.configureDashboard();
   }
 
   public void robotInit(){
@@ -170,6 +173,7 @@ public class RobotContainer {
 
   public void disabledPeriodic() {
     SmartDashboard.putData(autoMenu);
+    SmartDashboard.putBoolean("Has Target", photonVision.getLatestResult().hasTargets());
   }
 
   // command utility
