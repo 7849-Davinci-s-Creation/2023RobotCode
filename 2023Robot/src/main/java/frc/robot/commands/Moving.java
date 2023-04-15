@@ -68,10 +68,10 @@ public class Moving extends CommandBase {
         }
 
         if (RobotContainer.isInverted) {
-            drivetain.arcadeDrive(-(currentmovespeed / movementNerf), currentrotatespeed / movementNerf);
+            drivetain.arcadeDrive(-(currentmovespeed / movementNerf), currentrotatespeed);
             SmartDashboard.putString("Control State", "Inverted");
         } else {
-            drivetain.arcadeDrive(currentmovespeed / movementNerf, currentrotatespeed / movementNerf);
+            drivetain.arcadeDrive(currentmovespeed / movementNerf, currentrotatespeed);
             SmartDashboard.putString("Control State", "Normal");
         }
     }
