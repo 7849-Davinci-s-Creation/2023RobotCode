@@ -17,7 +17,8 @@ public class Moving extends CommandBase {
     private double lastrotatespeed;
     private double currentrotatespeed;
 
-    private final double movementNerf = 1.5;
+    private final double movementNerf = 1;
+    private final double rotateNerf = 0.5;
 
     public Moving(DriveTrain drivetain, Joystick thestick) {
         this.drivetain = drivetain;
@@ -67,13 +68,9 @@ public class Moving extends CommandBase {
             lastrotatespeed = currentrotatespeed;
         }
 
-        if (RobotContainer.isInverted) {
-            drivetain.arcadeDrive(-(currentmovespeed / movementNerf), currentrotatespeed);
-            SmartDashboard.putString("Control State", "Inverted");
-        } else {
-            drivetain.arcadeDrive(currentmovespeed / movementNerf, currentrotatespeed);
-            SmartDashboard.putString("Control State", "Normal");
-        }
+        drivetain.arcadeDrive(currentmovespeed / movementNerf, currentrotatespeed / rotateNerf);
+        SmartDashboard.putString("Control State", "Normal");
+
     }
 
     @Override

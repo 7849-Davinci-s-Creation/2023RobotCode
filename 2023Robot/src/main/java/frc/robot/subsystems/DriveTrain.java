@@ -76,6 +76,11 @@ public class DriveTrain extends SubsystemBase implements DashboardConfiguration{
     @Override
     public void periodic() {
 
+        System.out.println("Front left motor: " + frontLeftMotor.getBusVoltage());
+        System.out.println("Front right motor: " + frontRightMotor.getBusVoltage());
+        System.out.println("back left motor: " + backLeftMotor.getBusVoltage());
+        System.out.println("back right motor: " + backRightMotor.getBusVoltage());
+
     }
 
     @Override
